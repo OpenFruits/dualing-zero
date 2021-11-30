@@ -10,6 +10,7 @@
   "dependencies": {
     "@headlessui/react": "^1.4.2",
     "@heroicons/react": "^1.0.5",
+    "@u-wave/react-vimeo": "^0.9.5",
     "classcat": "^5.0.3",
     "next": "12.0.4",
     "react": "17.0.2",
