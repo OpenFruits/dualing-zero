@@ -10,7 +10,7 @@ type Props = {
 export const Chat: VFC<Props> = (props) => {
   const [comment, setComment] = useState("");
   const index = Number(props.chatId) - 1;
-  const [chat, setChat] = useState<Message[]>(chatList[index].messages);
+  const [chat, setChat] = useState<Message[]>(chatList[index]?.messages);
 
   const inputComment = useCallback(
     (event) => {
@@ -47,7 +47,7 @@ export const Chat: VFC<Props> = (props) => {
   return (
     <div>
       <div className="bg-gray-100 h-[calc(100vh-470px)] rounded-t overflow-y-scroll">
-        {chat.map((item, index) => (
+        {chat?.map((item, index) => (
           <div
             key={item.id}
             className={cc([
