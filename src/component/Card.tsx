@@ -47,7 +47,7 @@ export const Card: VFC<Props> = (props) => {
     <div className="bg-white rounded overflow-hidden shadow-lg border">
       <div
         className="relative w-full h-52 bg-cover cursor-pointer"
-        style={{ backgroundImage: `url(${props.student.thumbnailUrl})` }}
+        style={{ backgroundImage: `url(/student.jpg)` }}
         onClick={() => router.push(`/student/${props.student.uid}`)}
       >
         {relation === "scout" && (
