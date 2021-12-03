@@ -6,6 +6,7 @@ import { ExclamationIcon } from "@heroicons/react/outline";
 import { Drawer } from "src/component/Drawer";
 import { Button } from "src/component/Button";
 import { Notice } from "src/constants/types";
+import { noticeList } from "src/data/noticeList";
 
 const defalutNoticeState: Notice = {
   id: "",
@@ -17,10 +18,14 @@ const defalutNoticeState: Notice = {
 export const Inform: VFC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const onOpen = () => setIsOpen(true);
-  const [notices, setNotices] = useState<Notice[]>([]);
+  const [notices, setNotices] = useState<Notice[]>(noticeList);
   const [notice, setNotice] = useState<Notice>(defalutNoticeState);
   const [numberOfUnread, setNumberOfUnread] = useState(0);
   const [drawerBody, setDrawerBody] = useState("index");
+
+  useEffect(() => {
+    setNumberOfUnread(noticeList.filter((notice) => !notice.isRead).length);
+  }, []);
 
   return (
     <div>
@@ -64,11 +69,17 @@ export const Inform: VFC = () => {
                   一覧に戻る
                 </Button>
               </div>
-              {notice?.id === drawerBody ? (
+              {drawerBody !== "index" ? (
                 <article
                   className="prose pt-10"
                   dangerouslySetInnerHTML={{
-                    __html: `${notice?.body}`,
+                    __html: `
+                      <p>本田 圭佑さんがスカウトを承認しました。</p>
+                      <p>チャット画面からメッセージを送信してください。</p>
+                      <a class="text-blue-600" href="/student/1">
+                        本田 圭佑さんの詳細画面
+                      </a>
+                    `,
                   }}
                 />
               ) : (

@@ -1,28 +1,29 @@
+import { toUnicode } from "punycode";
 import { Notice } from "src/constants/types";
 
 export const noticeList: Notice[] = [
   {
     id: "1",
-    title: "",
+    title: "学生とマッチングしました",
     body: "",
-    isRead: true,
+    isRead: false,
   },
   {
     id: "2",
-    title: "",
+    title: "学生から新着メッセージがあります",
+    body: "",
+    isRead: false,
+  },
+  {
+    id: "3",
+    title: "学生とマッチングしました",
     body: "",
     isRead: true,
   },
   {
-    id: "3",
-    title: "",
-    body: "",
-    isRead: false,
-  },
-  {
     id: "4",
-    title: "",
+    title: "学生から新着メッセージがあります",
     body: "",
-    isRead: false,
+    isRead: true,
   },
 ];
