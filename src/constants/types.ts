@@ -35,13 +35,6 @@ export type Notice = {
   isRead: boolean;
 };
 
-export type CompanyInit = {
-  industry: OptionType;
-  occupations: OptionType[];
-  corporateUrl: string;
-  recruitUrl: string;
-};
-
 export type Student = {
   uid: number;
   firstName: string;
@@ -59,6 +52,7 @@ export type Student = {
   comment: string;
   vimeoUrl: string;
   thumbnailUrl: string;
+  relation: "no" | "scout" | "match";
 };
 
 export type Company = {
@@ -69,39 +63,4 @@ export type Company = {
   occupations: string[];
   corporateUrl: string;
   recruitUrl: string;
-};
-
-// Admin //
-type UserInfo = {
-  studentId: string;
-  studentName: string;
-};
-
-export type Reservation = UserInfo & {
-  firstChoice: string;
-  secondChoice: string;
-  thirdChoice: string;
-  created_at: any;
-};
-
-export type Schedule = UserInfo & {
-  date: any;
-  staff: string;
-};
-
-export type VimeoUser = UserInfo & {
-  condition: string;
-};
-
-export type AdminStudent = Student & {
-  email: string;
-  phoneNumber: string;
-  condition: string;
-  created_at: any;
-};
-
-export type AdminCompany = Company & {
-  password: string;
-  condition: string;
-  created_at: any;
 };
