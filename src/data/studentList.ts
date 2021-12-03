@@ -19,6 +19,7 @@ export const studentList: Student[] = [
     vimeoUrl: "https://vimeo.com/576374766/5f93123e40",
     thumbnailUrl:
       "https://i.vimeocdn.com/video/1192215092-21d45b2ad45578049ed390993dd01198f4f5049a815cf7375febba6f9a77bb48-d_640",
+    relation: "match",
   },
   {
     uid: 2,
@@ -38,6 +39,7 @@ export const studentList: Student[] = [
     vimeoUrl: "https://vimeo.com/576374766/5f93123e40",
     thumbnailUrl:
       "https://i.vimeocdn.com/video/1192215092-21d45b2ad45578049ed390993dd01198f4f5049a815cf7375febba6f9a77bb48-d_640",
+    relation: "no",
   },
   {
     uid: 3,
@@ -57,6 +59,7 @@ export const studentList: Student[] = [
     vimeoUrl: "https://vimeo.com/576374766/5f93123e40",
     thumbnailUrl:
       "https://i.vimeocdn.com/video/1192215092-21d45b2ad45578049ed390993dd01198f4f5049a815cf7375febba6f9a77bb48-d_640",
+    relation: "scout",
   },
   {
     uid: 4,
@@ -76,5 +79,26 @@ export const studentList: Student[] = [
     vimeoUrl: "https://vimeo.com/576374766/5f93123e40",
     thumbnailUrl:
       "https://i.vimeocdn.com/video/1192215092-21d45b2ad45578049ed390993dd01198f4f5049a815cf7375febba6f9a77bb48-d_640",
+    relation: "match",
+  },
+  {
+    uid: 5,
+    firstName: "那須川",
+    lastName: "天心",
+    firstKana: "なすかわ",
+    lastKana: "てんしん",
+    university: "近畿大学",
+    department: "経済学部",
+    club: "ボクシング部",
+    important: ["社風", "働きがい"],
+    industries: ["メーカー", "不動産"],
+    occupations: ["営業", "技術職"],
+    locations: ["東京都"],
+    advantages: ["明るい", "ムードメーカー"],
+    comment: "よろしくお願いします。",
+    vimeoUrl: "https://vimeo.com/576374766/5f93123e40",
+    thumbnailUrl:
+      "https://i.vimeocdn.com/video/1192215092-21d45b2ad45578049ed390993dd01198f4f5049a815cf7375febba6f9a77bb48-d_640",
+    relation: "scout",
   },
 ];

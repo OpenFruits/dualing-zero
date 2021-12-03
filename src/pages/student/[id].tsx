@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState } from "react";
 import { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -14,158 +14,29 @@ import { studentList } from "src/data/studentList";
 
 const StudentId: NextPage = () => {
   const router = useRouter();
-  const studentId = router.query.studentId;
+  const id = router.query.id;
   const [isOpen, setIsOpen] = useState(false);
   const onClose = () => setIsOpen(false);
   const onOpen = () => setIsOpen(true);
 
-  const [student, setStudent] = useState<Student>(studentList[0]);
-  const [relation, setRelation] = useState<string | undefined>(undefined);
-  const [relationId, setRelationId] = useState<string | undefined>(undefined);
+  const [student, setStudent] = useState<Student>(studentList[Number(id) - 1]);
   const [isBookmark, setIsBookmark] = useState(false);
-  const [toEmail, setToEmail] = useState("");
-  const [notFound, setNotFound] = useState(false);
 
   const currentUser = { name: "株式会社サンプル" };
 
-  // const getUserData = async () => {
-  //   if (typeof studentId === "string") {
-  //     const snapShot = await getDoc(doc(db, "users", studentId));
-  //     if (!snapShot.exists()) return setNotFound(true);
-  //     setStudent({
-  //       uid: studentId,
-  //       firstName: snapShot.data().firstName,
-  //       lastName: snapShot.data().lastName,
-  //       firstKana: snapShot.data().firstKana,
-  //       lastKana: snapShot.data().lastKana,
-  //       university: snapShot.data().university,
-  //       department: snapShot.data().department,
-  //       club: snapShot.data().club,
-  //       important: snapShot.data().important,
-  //       industries: snapShot.data().industries,
-  //       occupations: snapShot.data().occupations,
-  //       locations: snapShot.data().locations,
-  //       advantages: snapShot.data().advantages,
-  //       comment: snapShot.data().comment,
-  //       vimeoUrl: snapShot.data().vimeoUrl,
-  //       thumbnailUrl: snapShot.data().thumbnailUrl,
-  //     });
-  //     setToEmail(snapShot.data().email);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getUserData();
-  // }, [studentId]);
-
-  // const getRelationData = async () => {
-  //   if (currentUser && student) {
-  //     const ref = collection(db, "relations");
-  //     const q = query(
-  //       ref,
-  //       where("companyId", "==", currentUser.companyId),
-  //       where("studentId", "==", student.uid)
-  //     );
-  //     const snapShot = await getDocs(q);
-  //     if (snapShot.docs.length === 1) {
-  //       setRelation(snapShot.docs[0].data().condition);
-  //       setRelationId(snapShot.docs[0].id);
-  //     } else {
-  //       setRelation("no");
-  //     }
-  //   }
-  // };
-
-  // const checkBookmark = async () => {
-  //   if (currentUser) {
-  //     const ref = doc(
-  //       db,
-  //       "companies",
-  //       currentUser?.companyId,
-  //       "bookmarks",
-  //       studentId as string
-  //     );
-  //     const bookmarkSnap = await getDoc(ref);
-  //     if (bookmarkSnap.exists()) {
-  //       setIsBookmark(true);
-  //     }
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getRelationData();
-  //   checkBookmark();
-  // }, [currentUser, student]);
-
-  // const noticeBody = `
-  //   <p>${currentUser?.name}からスカウトが届いています。</p>
-  //   <p>スカウト一覧から詳細を確認し、</p>
-  //   <p>「マッチング」または「見送る」を選択してください。</p>
-  // `;
-
-  // const templateParams = {
-  //   to_email: toEmail,
-  //   title: "マイページに新着メッセージが届いています",
-  //   to_name: `${student?.firstName} ${student?.lastName}`,
-  //   message: "企業からスカウトされました。マイページより詳細をご確認ください。",
-  // };
-
   const scout = async () => {
     onClose();
-    // if (currentUser && student) {
-    //   const relaitonsRef = collection(db, "relations");
-    //   const noticesRef = collection(db, "users", student.uid, "notices");
-    //   await setDoc(doc(relaitonsRef), {
-    //     studentId: student.uid,
-    //     companyId: currentUser.companyId,
-    //     condition: "scout",
-    //   });
-    //   await setDoc(doc(noticesRef), {
-    //     created_at: FirebaseTimestamp,
-    //     title: "企業からスカウトされました",
-    //     body: noticeBody,
-    //     isRead: false,
-    //   }).then(() => {
-    //     toast.success("スカウトを送信しました");
-    //     sendMail(templateParams);
-    //   });
-    // }
   };
 
   const deleteScout = async () => {
     onClose();
-    // setRelation("no");
-    // const ref = doc(db, "relations", relationId as string);
-    // await deleteDoc(ref).then(() => {
-    //   toast.success("スカウトを取り消しました");
-    //   setRelationId(undefined);
-    // });
   };
 
   const bookmark = async () => {
-    // if (currentUser && student) {
-    //   const ref = doc(
-    //     db,
-    //     "companies",
-    //     currentUser?.companyId,
-    //     "bookmarks",
-    //     studentId as string
-    //   );
-    //   isBookmark
-    //     ? deleteDoc(ref)
-    //     : setDoc(ref, {
-    //         studentId: student.uid,
-    //         created_at: FirebaseTimestamp,
-    //       });
-    // }
     setIsBookmark(!isBookmark);
     if (!isBookmark) toast.success("保存しました");
     if (isBookmark) toast.success("保存済みから削除しました");
   };
-
-  useEffect(() => {
-    relation === "block" && setNotFound(true);
-  }, [relation]);
 
   return (
     <>
@@ -202,11 +73,11 @@ const StudentId: NextPage = () => {
                   as="h3"
                   className="text-lg font-bold py-4 leading-6 text-gray-900"
                 >
-                  {relation === "scout"
+                  {student.relation === "scout"
                     ? `${student?.firstName}${student?.lastName}さんへのスカウトは送信済みです。`
                     : `${student?.firstName}${student?.lastName}さんにスカウトを送信します。`}
                 </Dialog.Title>
-                {relation === "scout" ? (
+                {student.relation === "scout" ? (
                   <div>
                     学生がスカウトを「承認」した場合、チャットが可能となり、
                     「見送り」した場合その学生が一覧に表示されなくなります。
@@ -296,7 +167,7 @@ const StudentId: NextPage = () => {
                   )}
                 </div>
                 <div className="flex flex-col">
-                  {relation === "scout" && (
+                  {student.relation === "scout" && (
                     <button
                       onClick={onOpen}
                       className="w-44 h-10 ml-2 my-1 text-sm lg:text-md font-bold rounded tracking-wider text-center bg-gray-500 p-2 text-white hover:bg-gray-300 focus:outline-none cursor-pointer"
@@ -304,7 +175,7 @@ const StudentId: NextPage = () => {
                       スカウト済み
                     </button>
                   )}
-                  {relation === "no" && (
+                  {student.relation === "no" && (
                     <button
                       onClick={onOpen}
                       className="w-44 h-10 ml-2 my-1 text-sm lg:text-md font-bold rounded tracking-wider text-center bg-blue-500 p-2 text-white hover:bg-blue-400 focus:outline-none cursor-pointer"
@@ -325,9 +196,8 @@ const StudentId: NextPage = () => {
                   </button>
                 </div>
               </div>
-              {relation === "matching" && (
+              {student.relation === "match" && (
                 <Chat
-                  studentId={studentId as string}
                   studentName={`${student?.firstName} ${student?.lastName}`}
                 />
               )}

@@ -1,4 +1,4 @@
-import { useEffect, useState, VFC } from "react";
+import { useState, VFC } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { BookmarkIcon } from "@heroicons/react/outline";
@@ -11,30 +11,7 @@ type Props = {
 
 export const Card: VFC<Props> = (props) => {
   const router = useRouter();
-  const [relation, setRelation] = useState("no");
   const [isBookmark, setIsBookmark] = useState(false);
-  const [thumbnailUrl, setThumbnailUrl] = useState("");
-
-  // 学生と企業の関係性を判定する関数
-  const checkRelation = async (condition: string) => {};
-
-  const bookmarkRef = "";
-
-  // 保存されているかどうかチェック
-  const checkBookmark = async () => {};
-
-  // サムネイルをセット
-  const getThumbnail = async () => {};
-
-  useEffect(() => {
-    checkRelation("scout");
-    checkRelation("matching");
-    checkRelation("block");
-    checkBookmark();
-    getThumbnail();
-  }, []);
-
-  const setUser = async () => {};
 
   // 保存or保存の削除
   const bookmark = async () => {
@@ -43,24 +20,24 @@ export const Card: VFC<Props> = (props) => {
     if (isBookmark) toast.success("保存済みから削除しました");
   };
 
-  return relation === "block" ? null : ( // block関係にある学生は非表示
+  return (
     <div className="bg-white rounded overflow-hidden shadow-lg border">
       <div
         className="relative w-full h-52 bg-cover cursor-pointer"
         style={{ backgroundImage: `url(/student.jpg)` }}
         onClick={() => router.push(`/student/${props.student.uid}`)}
       >
-        {relation === "scout" && (
+        {props.student.relation === "scout" && (
           <div className="bg-green-500 text-white font-bold text-sm p-2 m-2 absolute top-0 right-0 rounded-full">
             スカウト中
           </div>
         )}
-        {relation === "matching" && (
+        {props.student.relation === "match" && (
           <div className="bg-yellow-300 font-bold text-sm p-2 m-2 absolute top-0 right-0 rounded-full">
             マッチング
           </div>
         )}
-        {relation === "matching" && (
+        {props.student.relation === "match" && (
           <div className="bg-gray-200 font-bold text-sm p-2 m-2 absolute top-0 left-0 rounded">
             {`${props.student.firstName} ${props.student.lastName}`}
           </div>
@@ -127,17 +104,17 @@ export const Card: VFC<Props> = (props) => {
       <div className="flex justify-start p-2">
         <Link href={`/student/${props.student.uid}`}>
           <a className="mr-2">
-            {relation === "no" && (
+            {props.student.relation === "no" && (
               <button className="m-auto lg:mx-0 text-xs lg:text-md font-bold rounded tracking-wider text-center bg-blue-500 p-2 text-white hover:bg-blue-400 focus:outline-none cursor-pointer">
                 詳細・スカウト画面へ
               </button>
             )}
-            {relation === "scout" && (
+            {props.student.relation === "scout" && (
               <button className="m-auto lg:mx-0 text-xs lg:text-md font-bold rounded tracking-wider text-center bg-blue-500 p-2 text-white hover:bg-blue-400 focus:outline-none cursor-pointer">
                 詳細画面へ
               </button>
             )}
-            {relation === "matching" && (
+            {props.student.relation === "match" && (
               <button className="m-auto lg:mx-0 text-xs lg:text-md font-bold rounded tracking-wider text-center bg-blue-500 p-2 text-white hover:bg-blue-400 focus:outline-none cursor-pointer">
                 詳細・チャット画面へ
               </button>

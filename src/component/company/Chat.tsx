@@ -1,56 +1,15 @@
 import { VFC, useState, useCallback, useEffect, useRef } from "react";
 import cc from "classcat";
+import { chatList, Message } from "src/data/chatList";
 
 type Props = {
-  studentId: string;
   studentName: string;
 };
 
-type Message = {
-  role: string;
-  message: string;
-  timestamp: any;
-};
-
 export const Chat: VFC<Props> = (props) => {
-  const [relationId, setRelationId] = useState("");
   const [comment, setComment] = useState("");
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [chat, setChat] = useState<Message[]>(chatList[0]?.messages);
   const currentUser = { name: "株式会社サンプル" };
-
-  // const getRelation = async () => {
-  //   if (currentUser) {
-  //     const ref = collection(db, "relations");
-  //     const q = query(
-  //       ref,
-  //       where("studentId", "==", props.studentId),
-  //       where("companyId", "==", currentUser?.companyId),
-  //       where("condition", "==", "matching")
-  //     );
-  //     const snapShot = await getDocs(q);
-  //     setRelationId(snapShot.docs[0].id);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getRelation();
-  // }, [currentUser]);
-
-  // const getChatData = async () => {
-  //   if (relationId !== "") {
-  //     const ref = collection(db, "relations", relationId, "messages");
-  //     const q = query(ref, orderBy("timestamp"));
-  //     const snapShot = await getDocs(q);
-  //     const _messages = snapShot.docs.map((doc) => {
-  //       return {
-  //         role: doc.get("role"),
-  //         message: doc.get("message"),
-  //         timestamp: doc.get("timestamp"),
-  //       };
-  //     });
-  //     setMessages(_messages);
-  //   }
-  // };
 
   const inputComment = useCallback(
     (event) => {
@@ -59,36 +18,16 @@ export const Chat: VFC<Props> = (props) => {
     [setComment]
   );
 
-  // const getStudentEmail = async () => {
-  //   const ref = doc(db, "users", props.studentId);
-  //   const snapShot = await getDoc(ref);
-  //   snapShot.exists() && setToEmail(snapShot.data().email);
-  // };
-
-  // useEffect(() => {
-  //   getStudentEmail();
-  // }, []);
-
   const submit = async () => {
-    //   const messagesRef = collection(db, "relations", relationId, "messages");
-    //   await setDoc(doc(messagesRef), {
-    //     role: "company",
-    //     message: comment,
-    //     timestamp: FirebaseTimestamp,
-    //   }).then(() => setComment(""));
-    //   const noticesRef = collection(db, "users", props.studentId, "notices");
-    //   await setDoc(doc(noticesRef), {
-    //     created_at: FirebaseTimestamp,
-    //     title: "企業から新着メッセージがあります",
-    //     body: noticeBody,
-    //     isRead: false,
-    //   }).then(() => sendMail(templateParams));
+    const newMessage: Message = {
+      id: chat.length + 1,
+      role: "company",
+      timestamp: "2021/12/15 16:00",
+      message: comment,
+    };
+    setChat([...chat, newMessage]);
+    setComment("");
   };
-
-  // useEffect(() => {
-  //   getChatData();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [relationId, submit]);
 
   // 自動スクロール
   const messageEndRef = useRef<HTMLDivElement>(null);
@@ -102,7 +41,7 @@ export const Chat: VFC<Props> = (props) => {
 
   useEffect(() => {
     scrollToBottomOfList();
-  }, [messages]);
+  }, [chat, scrollToBottomOfList]);
 
   return (
     <div>
@@ -110,12 +49,12 @@ export const Chat: VFC<Props> = (props) => {
         className="bg-gray-100 xl:w-[800px] w-[600px] h-80 overflow-y-scroll"
         id="chat"
       >
-        {messages.length === 0 && (
+        {chat.length === 0 && (
           <p className="p-4 m-2 bg-white rounded">
             学生が最初のメッセージを待っています！
           </p>
         )}
-        {messages.map((item, index) => (
+        {chat.map((item, index) => (
           <div
             key={item.timestamp}
             className={cc([
@@ -125,16 +64,14 @@ export const Chat: VFC<Props> = (props) => {
               },
             ])}
           >
-            {index === messages.length - 1 && (
+            {index === chat.length - 1 && (
               <p className="text-red-500 text-center text-xs">
                 - 最新のメッセージ -
               </p>
             )}
             <div className="text-left inline-block m-2">
               <div>
-                <small className="text-gray-500">
-                  {/* {FromTimeStampToDate(item.timestamp)} */}
-                </small>
+                <small className="text-gray-500">{item.timestamp}</small>
                 <p className="text-xs">
                   {item.role === "company"
                     ? currentUser?.name
