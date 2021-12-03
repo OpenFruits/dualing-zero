@@ -1,4 +1,3 @@
-import { toUnicode } from "punycode";
 import { Notice } from "src/constants/types";
 
 export const noticeList: Notice[] = [
