@@ -3,10 +3,10 @@ import { Student } from "src/constants/types";
 export const studentList: Student[] = [
   {
     uid: 1,
-    firstName: "本田",
-    lastName: "圭佑",
-    firstKana: "ほんだ",
-    lastKana: "けいすけ",
+    firstName: "山田",
+    lastName: "太郎",
+    firstKana: "やまだ",
+    lastKana: "たろう",
     university: "近畿大学",
     department: "経営学部",
     club: "サッカー部",
