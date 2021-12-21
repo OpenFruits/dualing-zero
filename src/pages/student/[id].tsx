@@ -73,11 +73,11 @@ const StudentId: NextPage = () => {
                   as="h3"
                   className="text-lg font-bold py-4 leading-6 text-gray-900"
                 >
-                  {student.relation === "scout"
+                  {student?.relation === "scout"
                     ? `${student?.firstName}${student?.lastName}さんへのスカウトは送信済みです。`
                     : `${student?.firstName}${student?.lastName}さんにスカウトを送信します。`}
                 </Dialog.Title>
-                {student.relation === "scout" ? (
+                {student?.relation === "scout" ? (
                   <div>
                     学生がスカウトを「承認」した場合、チャットが可能となり、
                     「見送り」した場合その学生が一覧に表示されなくなります。
@@ -167,7 +167,7 @@ const StudentId: NextPage = () => {
                   )}
                 </div>
                 <div className="flex flex-col">
-                  {student.relation === "scout" && (
+                  {student?.relation === "scout" && (
                     <button
                       onClick={onOpen}
                       className="w-44 h-10 ml-2 my-1 text-sm lg:text-md font-bold rounded tracking-wider text-center bg-gray-500 p-2 text-white hover:bg-gray-300 focus:outline-none cursor-pointer"
@@ -175,7 +175,7 @@ const StudentId: NextPage = () => {
                       スカウト済み
                     </button>
                   )}
-                  {student.relation === "no" && (
+                  {student?.relation === "no" && (
                     <button
                       onClick={onOpen}
                       className="w-44 h-10 ml-2 my-1 text-sm lg:text-md font-bold rounded tracking-wider text-center bg-blue-500 p-2 text-white hover:bg-blue-400 focus:outline-none cursor-pointer"
@@ -196,7 +196,7 @@ const StudentId: NextPage = () => {
                   </button>
                 </div>
               </div>
-              {student.relation === "match" && (
+              {student?.relation === "match" && (
                 <Chat
                   studentName={`${student?.firstName} ${student?.lastName}`}
                 />
