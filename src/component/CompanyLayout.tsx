@@ -34,6 +34,7 @@ export const CompanyLayout: VFC<Props> = (props) => {
   const [locations, setLocations] = useState(undefined);
   const [advantages, setAdvantages] = useState(undefined);
   const [searchOptions, setSearchOptions] = useState([
+    university,
     important,
     industries,
     occupations,
@@ -41,11 +42,12 @@ export const CompanyLayout: VFC<Props> = (props) => {
     advantages,
   ]);
   const canSearch: boolean =
-    important !== searchOptions[0] ||
-    industries !== searchOptions[1] ||
-    occupations !== searchOptions[2] ||
-    locations !== searchOptions[3] ||
-    advantages !== searchOptions[4];
+    university !== searchOptions[0] ||
+    important !== searchOptions[1] ||
+    industries !== searchOptions[2] ||
+    occupations !== searchOptions[3] ||
+    locations !== searchOptions[4] ||
+    advantages !== searchOptions[5];
 
   const OPTION_ITEMS = [
     { type: "bookmark", label: "保存済みの学生を表示" },
