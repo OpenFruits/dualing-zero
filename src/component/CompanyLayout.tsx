@@ -10,6 +10,7 @@ import { locationOptions } from "src/constants/options/location";
 import { occupationOptions } from "src/constants/options/occupation";
 import { useRouter } from "next/router";
 import { Inform } from "src/component/company/Inform";
+import { universityOptions } from "src/constants/options/university";
 
 type Props = {
   children: React.ReactNode;
@@ -26,6 +27,7 @@ export const CompanyLayout: VFC<Props> = (props) => {
   const [isBookmark, setIsBookmark] = useState(false);
   const [isScout, setIsScout] = useState(false);
   const [isMatch, setIsMatch] = useState(false);
+  const [university, setUniversity] = useState(undefined);
   const [important, setImportant] = useState(undefined);
   const [industries, setIndustries] = useState(undefined);
   const [occupations, setOccupations] = useState(undefined);
@@ -57,6 +59,11 @@ export const CompanyLayout: VFC<Props> = (props) => {
     if (option === "scout") setIsScout(!isScout);
     if (option === "match") setIsMatch(!isMatch);
   };
+
+  const inputUniversity = useCallback(
+    (e) => setUniversity(e?.value),
+    [setUniversity]
+  );
 
   const inputImportant = useCallback(
     (e) => setImportant(e?.value),
@@ -95,6 +102,16 @@ export const CompanyLayout: VFC<Props> = (props) => {
           <div className="border-b pb-2 mb-4">
             <div>
               <span className="text-gray-700">条件を指定して検索</span>
+              <Select
+                id={"university"}
+                instanceId={"university"}
+                inputId={"university"}
+                isClearable
+                placeholder="大学を指定"
+                options={universityOptions}
+                onChange={inputUniversity}
+                className="mb-2"
+              />
               <Select
                 id={"important"}
                 instanceId={"important"}
