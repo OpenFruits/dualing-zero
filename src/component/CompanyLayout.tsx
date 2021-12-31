@@ -8,7 +8,6 @@ import { importantOptions } from "src/constants/options/important";
 import { industryOptions } from "src/constants/options/industry";
 import { locationOptions } from "src/constants/options/location";
 import { occupationOptions } from "src/constants/options/occupation";
-import { useRouter } from "next/router";
 import { Inform } from "src/component/company/Inform";
 import { universityOptions } from "src/constants/options/university";
 
@@ -21,8 +20,6 @@ const currentUser = {
 };
 
 export const CompanyLayout: VFC<Props> = (props) => {
-  const router = useRouter();
-  const [result, setResult] = useState("全学生");
   const [showOption, setShowOption] = useState<string>("");
   const [isBookmark, setIsBookmark] = useState(false);
   const [isScout, setIsScout] = useState(false);
